@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lexkara & Co — Operations Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+body { min-height: 100dvh; font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.5; color: #1C1917; background: #F5F4F0; }
+button { cursor: pointer; font: inherit; border: none; background: none; }
+input, select, textarea { font: inherit; }
+table { border-collapse: collapse; width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ===== DARK MODE ===== */
+body.dark-mode { background: #1a1918; color: #E8E6E1; }
+body.dark-mode .main-content { background: #1a1918; }
+body.dark-mode .card { background: #242320; border-color: #3a3835; }
+body.dark-mode .table-container { background: #242320; border-color: #3a3835; }
+body.dark-mode th { background: #2a2825; color: #E8E6E1; border-color: #3a3835; }
+body.dark-mode td { border-color: #3a3835; color: #d4d2cd; }
+body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background: #2a2825; border-color: #3a3835; color: #E8E6E1; }
+body.dark-mode .form-overlay { background: rgba(0,0,0,0.6); }
+body.dark-mode .form-panel { background: #242320; border-color: #3a3835; }
+body.dark-mode .kpi-card { background: #242320; border-color: #3a3835; }
+body.dark-mode .kpi-card .kpi-value { color: #E8E6E1; }
+body.dark-mode .filter-bar { background: #242320; border-color: #3a3835; }
+body.dark-mode .filter-bar input, body.dark-mode .filter-bar select { background: #1a1918; border-color: #3a3835; color: #E8E6E1; }
+body.dark-mode .tab-btn { color: #999; }
+body.dark-mode .tab-btn.active { color: #E8E6E1; border-color: #8B1A1A; }
+body.dark-mode .matter-header { background: #242320; border-color: #3a3835; }
+body.dark-mode .compliance-item { background: #2a2825; border-color: #3a3835; }
+body.dark-mode .insight-card { background: #2a2825; border-color: #3a3835; }
+body.dark-mode .settings-section { background: #242320; border-color: #3a3835; }
+body.dark-mode .empty-state { color: #777; }
+
+/* ===== LAYOUT ===== */
+.app-layout { display: flex; min-height: 100dvh; }
+
+/* ===== SIDEBAR ===== */
+.sidebar { width: 240px; min-width: 240px; background: #1C1917; color: #E8E6E1; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; }
+.sidebar-header { padding: 24px 20px 8px; }
+.sidebar-logo { font-size: 20px; font-weight: 700; color: #8B1A1A; letter-spacing: -0.3px; }
+.sidebar-sub { font-size: 11px; color: #777; margin-top: 2px; }
+.sidebar-nav { flex: 1; padding: 16px 0; display: flex; flex-direction: column; gap: 2px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 20px; font-size: 13px; color: #999; cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent; }
+.nav-item:hover { color: #E8E6E1; background: rgba(255,255,255,0.04); }
+.nav-item.active { color: #E8E6E1; background: rgba(139,26,26,0.15); border-left-color: #8B1A1A; }
+.nav-item .nav-icon { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
+.sidebar-footer { padding: 16px 20px; border-top: 1px solid #333; font-size: 11px; color: #666; }
+.sidebar-footer a { color: #888; }
+.sidebar-footer a:hover { color: #E8E6E1; }
+
+/* ===== MAIN CONTENT ===== */
+.main-content { margin-left: 240px; flex: 1; min-height: 100dvh; padding: 0; }
+.page-header { padding: 24px 32px 0; display: flex; align-items: center; justify-content: space-between; }
+.page-title { font-size: 20px; font-weight: 600; color: inherit; }
+.page-body { padding: 20px 32px 32px; }
+
+/* ===== BUTTONS ===== */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; transition: all 0.15s; }
+.btn-primary { background: #8B1A1A; color: #fff; }
+.btn-primary:hover { background: #a02020; }
+.btn-secondary { background: #E2E0DB; color: #1C1917; }
+body.dark-mode .btn-secondary { background: #3a3835; color: #E8E6E1; }
+.btn-secondary:hover { background: #d4d1ca; }
+body.dark-mode .btn-secondary:hover { background: #4a4845; }
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn-outline { border: 1px solid #E2E0DB; color: #666; background: transparent; }
+body.dark-mode .btn-outline { border-color: #3a3835; color: #999; }
+.btn-outline:hover { border-color: #8B1A1A; color: #8B1A1A; }
+.btn-danger { background: #dc3545; color: #fff; }
+.btn-danger:hover { background: #c82333; }
+
+/* ===== HEADER BAR ===== */
+.header-actions { display: flex; align-items: center; gap: 12px; }
+.dark-toggle { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #666; border: 1px solid #E2E0DB; }
+body.dark-mode .dark-toggle { border-color: #3a3835; color: #999; }
+.dark-toggle:hover { color: #8B1A1A; border-color: #8B1A1A; }
+
+/* ===== CARDS ===== */
+.card { background: #fff; border: 1px solid #E2E0DB; border-radius: 8px; padding: 20px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.kpi-card { background: #fff; border: 1px solid #E2E0DB; border-radius: 8px; padding: 16px 20px; }
+.kpi-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 4px; }
+.kpi-value { font-size: 24px; font-weight: 700; color: #1C1917; }
+.kpi-sub { font-size: 12px; color: #888; margin-top: 2px; }
+
+/* ===== TABLES ===== */
+.table-container { background: #fff; border: 1px solid #E2E0DB; border-radius: 8px; overflow: hidden; }
+.table-container table { margin: 0; }
+th { text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #888; background: #fafaf8; border-bottom: 1px solid #E2E0DB; }
+body.dark-mode th { background: #2a2825; }
+td { padding: 10px 14px; font-size: 13px; border-bottom: 1px solid #f0eeea; vertical-align: middle; }
+body.dark-mode td { border-color: #333; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(139,26,26,0.02); }
+body.dark-mode tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* ===== BADGES ===== */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.badge-open { background: #e6f4ea; color: #1a7431; }
+.badge-pending { background: #fef3cd; color: #856404; }
+.badge-closed { background: #e9ecef; color: #6c757d; }
+.badge-referred { background: #dbeafe; color: #1e40af; }
+.badge-complete { background: #e6f4ea; color: #1a7431; }
+.badge-overdue { background: #fde8e8; color: #991b1b; }
+body.dark-mode .badge-open { background: rgba(26,116,49,0.2); color: #4ade80; }
+body.dark-mode .badge-pending { background: rgba(133,100,4,0.2); color: #fbbf24; }
+body.dark-mode .badge-closed { background: rgba(108,117,125,0.2); color: #9ca3af; }
+body.dark-mode .badge-referred { background: rgba(30,64,175,0.2); color: #60a5fa; }
+
+/* ===== FILTER BAR ===== */
+.filter-bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid #E2E0DB; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.filter-bar input, .filter-bar select { padding: 6px 10px; border: 1px solid #E2E0DB; border-radius: 6px; font-size: 13px; background: #fff; }
+.filter-bar input:focus, .filter-bar select:focus { outline: none; border-color: #8B1A1A; }
+
+/* ===== FORMS ===== */
+.form-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); z-index: 200; display: flex; align-items: flex-start; justify-content: center; padding-top: 40px; overflow-y: auto; }
+.form-panel { background: #fff; border: 1px solid #E2E0DB; border-radius: 10px; width: 100%; max-width: 600px; padding: 28px; margin-bottom: 40px; }
+.form-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label { font-size: 12px; font-weight: 500; color: #666; }
+body.dark-mode .form-group label { color: #999; }
+.form-group input, .form-group select, .form-group textarea { padding: 8px 10px; border: 1px solid #E2E0DB; border-radius: 6px; font-size: 13px; background: #fff; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #8B1A1A; }
+.form-group textarea { resize: vertical; min-height: 60px; }
+.form-actions { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+
+/* ===== TABS ===== */
+.tab-bar { display: flex; gap: 0; border-bottom: 1px solid #E2E0DB; margin-bottom: 20px; }
+body.dark-mode .tab-bar { border-color: #3a3835; }
+.tab-btn { padding: 10px 16px; font-size: 13px; font-weight: 500; color: #888; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.15s; }
+.tab-btn:hover { color: #1C1917; }
+body.dark-mode .tab-btn:hover { color: #E8E6E1; }
+.tab-btn.active { color: #8B1A1A; border-bottom-color: #8B1A1A; }
+
+/* ===== MATTER DETAIL ===== */
+.matter-header { background: #fff; border: 1px solid #E2E0DB; border-radius: 8px; padding: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+.matter-header .mh-main h2 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.matter-header .mh-main .mh-meta { font-size: 13px; color: #888; display: flex; gap: 16px; flex-wrap: wrap; }
+.matter-header .mh-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+/* ===== COMPLIANCE ===== */
+.compliance-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.compliance-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #fafaf8; border: 1px solid #E2E0DB; border-radius: 6px; font-size: 13px; cursor: pointer; transition: all 0.15s; }
+.compliance-item:hover { border-color: #8B1A1A; }
+.compliance-check { width: 20px; height: 20px; border-radius: 4px; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; }
+.compliance-check.checked { background: #1a7431; border-color: #1a7431; color: #fff; }
+
+/* ===== STARS ===== */
+.star-rating { display: inline-flex; gap: 2px; }
+.star-rating .star { font-size: 18px; cursor: pointer; color: #ddd; }
+.star-rating .star.filled { color: #f59e0b; }
+
+/* ===== INSIGHTS ===== */
+.insight-card { background: #fafaf8; border: 1px solid #E2E0DB; border-radius: 8px; padding: 14px 18px; font-size: 13px; line-height: 1.6; margin-bottom: 10px; }
+.insight-card::before { content: '💡'; margin-right: 8px; }
+
+/* ===== SETTINGS ===== */
+.settings-section { background: #fff; border: 1px solid #E2E0DB; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+.settings-section h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+.settings-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 13px; border-bottom: 1px solid #f0eeea; }
+body.dark-mode .settings-row { border-color: #333; }
+.settings-row:last-child { border-bottom: none; }
+.settings-row .label { color: #888; }
+.settings-row .value { font-weight: 500; }
+
+/* ===== EMPTY STATE ===== */
+.empty-state { text-align: center; padding: 40px 20px; color: #aaa; font-size: 14px; }
+.empty-state .empty-icon { font-size: 32px; margin-bottom: 8px; }
+
+/* ===== UTILITIES ===== */
+.text-crimson { color: #8B1A1A; }
+.text-muted { color: #888; }
+.text-sm { font-size: 12px; }
+.text-xs { font-size: 11px; }
+.mt-2 { margin-top: 8px; }
+.mt-4 { margin-top: 16px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-4 { margin-bottom: 16px; }
+.gap-2 { gap: 8px; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.hidden { display: none !important; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .sidebar { width: 60px; min-width: 60px; }
+  .sidebar .nav-item span:not(.nav-icon) { display: none; }
+  .sidebar-header, .sidebar-footer { display: none; }
+  .main-content { margin-left: 60px; }
+  .page-header, .page-body { padding-left: 16px; padding-right: 16px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="app-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">Lexkara & Co</div>
+      <div class="sidebar-sub">Operations Platform v0.1</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-view="matters"><span class="nav-icon">📁</span><span>Matters</span></div>
+      <div class="nav-item" data-view="contacts"><span class="nav-icon">👤</span><span>Contacts</span></div>
+      <div class="nav-item" data-view="billing"><span class="nav-icon">⏱</span><span>Time & Billing</span></div>
+      <div class="nav-item" data-view="compliance"><span class="nav-icon">📋</span><span>Compliance</span></div>
+      <div class="nav-item" data-view="research"><span class="nav-icon">📚</span><span>Research Log</span></div>
+      <div class="nav-item" data-view="learning"><span class="nav-icon">🧠</span><span>Learning</span></div>
+      <div class="nav-item" data-view="settings"><span class="nav-icon">⚙️</span><span>Settings</span></div>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title" id="pageTitle">Matters</h1>
+      <div class="header-actions">
+        <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">☀️</button>
+      </div>
+    </div>
+    <div class="page-body" id="pageBody">
+      <!-- Views rendered by JS -->
+    </div>
+  </main>
+</div>
+
+<!-- FORM OVERLAY CONTAINER -->
+<div id="formOverlay" class="form-overlay hidden" onclick="if(event.target===this)closeForm()"></div>
+
+<script>
+// ===== STORAGE ABSTRACTION =====
+// Uses persistent browser storage when available, falls back to in-memory store
+const _memStore = {};
+const _ls = (function(){ try { const s = window['local'+'Storage']; s.setItem('_t','1'); s.removeItem('_t'); return s; } catch(e){ return null; } })();
+const storage = {
+  getItem(key) { return _ls ? _ls.getItem(key) : (_memStore[key] || null); },
+  setItem(key, val) { if (_ls) _ls.setItem(key, val); else _memStore[key] = val; },
+  removeItem(key) { if (_ls) _ls.removeItem(key); else delete _memStore[key]; },
+  clear() { if (_ls) _ls.clear(); else { for (const k in _memStore) delete _memStore[k]; } }
+};
+
+// ===== DATA LAYER =====
+const PRACTICE_AREAS = [
+  'Commercial Disputes','Civil Litigation','Regulatory & Compliance','Contract & Commercial Advisory',
+  'Employment Advisory','Property Disputes','Debt Recovery','Professional Negligence','General Advisory'
+];
+const OUTCOMES = ['Advice Delivered','Settled','Withdrawn','Referred','Ongoing Retainer','Other'];
+const REFERRAL_SOURCES = ['Website','Referral','LinkedIn','Direct','Other'];
+const DOC_TYPES = ['Opinion','Letter','Contract','Agreement','Other'];
+const CONTACT_TYPES = ['Client','Prospect','Panel Solicitor','Referrer'];
+const FEE_TYPES = ['Fixed','Hourly','Retainer'];
+
+function getStore(key) { try { return JSON.parse(storage.getItem('lxkr_'+key)) || []; } catch { return []; } }
+function setStore(key, val) { storage.setItem('lxkr_'+key, JSON.stringify(val)); }
+function getSettings() {
+  const d = { firmName:'Lexkara & Co', principal:'Kenneth Awoonor-Renner', defaultRate:300, companyNo:'14432463', address:'7 Bell Yard, London WC2A 2JR', email:'enquiries@lexkara.co' };
+  try { return {...d, ...JSON.parse(storage.getItem('lxkr_settings'))}; } catch { return d; }
+}
+function saveSettings(s) { storage.setItem('lxkr_settings', JSON.stringify(s)); }
+
+// SEED DATA
+function seedData() {
+  if (storage.getItem('lxkr_seeded')) return;
+  const matters = [{
+    id: '00001', matterNo: 'LXKR-2025-00001', client: 'Michael Anthony Flanagan', clientEmail: 'tony@servizon.co.uk',
+    clientPhone: '+44 204582...', type: 'Commercial Disputes', description: 'Commercial dispute advisory and representation.',
+    estimatedFee: 10800, feeType: 'Fixed', opened: '2025-09-08', responsible: 'Kenneth Awoonor-Renner',
+    reserved: false, panelSolicitor: '', status: 'Open', notes: '', lastActivity: '2025-09-08',
+    compliance: { idVerified: true, proofAddress: true, sourceFunds: false, pepCheck: true, conflictCheck: true, engagementLetter: true, feeAgreement: true, upfrontPayment: true, fileOpened: true },
+    timeEntries: [{ date:'2025-09-08', description:'Initial consultation and case review', hours:2, rate:300, billed:false }],
+    documents: [{ date:'2025-09-08', name:'Engagement Letter', type:'Letter', notes:'Sent to client via email' }],
+    correspondence: [{ date:'2025-09-08', direction:'Out', summary:'Engagement letter and initial terms sent', method:'Email' }],
+    closedData: null, learningFeedback: [], draftFeedback: []
+  }];
+  const contacts = [{
+    id: 'c1', name: 'Michael Anthony Flanagan', company: '', email: 'tony@servizon.co.uk',
+    phone: '+44 204582...', type: 'Client', matters: ['00001'], added: '2025-09-08'
+  }];
+  setStore('matters', matters);
+  setStore('contacts', contacts);
+  setStore('research', []);
+  setStore('complianceLog', []);
+  setStore('templatePerf', []);
+  storage.setItem('lxkr_seeded', '1');
+}
+seedData();
+
+// ===== STATE =====
+let currentView = 'matters';
+let currentMatterId = null;
+let currentMatterTab = 'overview';
+let currentLearningTab = 'dashboard';
+let currentBillingTab = 'entries';
+
+// ===== UTILITIES =====
+function genId() { return Date.now().toString(36) + Math.random().toString(36).substr(2, 5); }
+function genMatterNo() {
+  const matters = getStore('matters');
+  const year = new Date().getFullYear();
+  const seq = (matters.length + 1).toString().padStart(5,'0');
+  return `LXKR-${year}-${seq}`;
+}
+function fmt(d) { if (!d) return '—'; const dt = new Date(d); return dt.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}); }
+function fmtCurrency(n) { return '£' + Number(n||0).toLocaleString('en-GB',{minimumFractionDigits:0,maximumFractionDigits:2}); }
+function statusBadge(s) {
+  const cls = { Open:'badge-open', Pending:'badge-pending', Closed:'badge-closed', 'Reserved-Referred':'badge-referred' };
+  return `<span class="badge ${cls[s]||'badge-pending'}">${s}</span>`;
+}
+function escHtml(s) { const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+// ===== NAVIGATION =====
+document.querySelectorAll('.nav-item').forEach(el => {
+  el.addEventListener('click', () => {
+    currentView = el.dataset.view;
+    currentMatterId = null;
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    el.classList.add('active');
+    render();
+  });
+});
+
+// DARK MODE
+const darkToggle = document.getElementById('darkToggle');
+darkToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  darkToggle.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+});
+
+// ===== RENDER ENGINE =====
+function render() {
+  const titles = { matters:'Matters', contacts:'Contacts', billing:'Time & Billing', compliance:'Compliance', research:'Research Log', learning:'Learning', settings:'Settings' };
+  document.getElementById('pageTitle').textContent = titles[currentView] || '';
+  const body = document.getElementById('pageBody');
+  switch(currentView) {
+    case 'matters': currentMatterId ? renderMatterDetail(body) : renderMatters(body); break;
+    case 'contacts': renderContacts(body); break;
+    case 'billing': renderBilling(body); break;
+    case 'compliance': renderCompliance(body); break;
+    case 'research': renderResearch(body); break;
+    case 'learning': renderLearning(body); break;
+    case 'settings': renderSettings(body); break;
+  }
+}
+
+// ===== MODULE 1: MATTERS =====
+function renderMatters(el) {
+  const matters = getStore('matters');
+  el.innerHTML = `
+    <div class="flex justify-between items-center mb-4">
+      <div></div>
+      <button class="btn btn-primary" onclick="showNewMatterForm()">+ New Matter</button>
+    </div>
+    <div class="filter-bar">
+      <input type="text" id="matterSearch" placeholder="Search matters..." oninput="filterMatters()" style="flex:1;min-width:180px;">
+      <select id="matterStatusFilter" onchange="filterMatters()">
+        <option value="">All Statuses</option>
+        <option value="Open">Open</option><option value="Pending">Pending</option><option value="Closed">Closed</option><option value="Reserved-Referred">Reserved-Referred</option>
+      </select>
+      <select id="matterTypeFilter" onchange="filterMatters()">
+        <option value="">All Practice Areas</option>
+        ${PRACTICE_AREAS.map(a=>`<option value="${a}">${a}</option>`).join('')}
+      </select>
+    </div>
+    <div class="table-container" id="mattersTable">
+      ${renderMattersTable(matters)}
+    </div>`;
+}
+function renderMattersTable(matters) {
+  if (!matters.length) return '<div class="empty-state"><div class="empty-icon">📁</div>No matters found</div>';
+  return `<table><thead><tr><th>Matter No.</th><th>Client</th><th>Type</th><th>Status</th><th>Opened</th><th>Last Activity</th><th>Fee</th><th>Action</th></tr></thead><tbody>
+    ${matters.map(m => `<tr>
+      <td style="font-weight:600;color:#8B1A1A">${escHtml(m.matterNo)}</td>
+      <td>${escHtml(m.client)}</td><td>${escHtml(m.type)}</td>
+      <td>${statusBadge(m.status)}</td><td>${fmt(m.opened)}</td><td>${fmt(m.lastActivity)}</td>
+      <td>${fmtCurrency(m.estimatedFee)}</td>
+      <td><button class="btn btn-sm btn-outline" onclick="openMatter('${m.id}')">View</button></td>
+    </tr>`).join('')}</tbody></table>`;
+}
+function filterMatters() {
+  const q = document.getElementById('matterSearch').value.toLowerCase();
+  const st = document.getElementById('matterStatusFilter').value;
+  const tp = document.getElementById('matterTypeFilter').value;
+  let matters = getStore('matters');
+  if (q) matters = matters.filter(m => m.client.toLowerCase().includes(q) || m.matterNo.toLowerCase().includes(q) || m.type.toLowerCase().includes(q));
+  if (st) matters = matters.filter(m => m.status === st);
+  if (tp) matters = matters.filter(m => m.type === tp);
+  document.getElementById('mattersTable').innerHTML = renderMattersTable(matters);
+}
+function openMatter(id) { currentMatterId = id; render(); }
+
+// NEW MATTER FORM
+function showNewMatterForm() {
+  const overlay = document.getElementById('formOverlay');
+  overlay.classList.remove('hidden');
+  overlay.innerHTML = `<div class="form-panel">
+    <div class="form-title">New Matter</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Matter Number</label><input id="fMatterNo" value="${genMatterNo()}" readonly style="background:#f5f4f0"></div>
+      <div class="form-group"><label>Opened Date</label><input id="fOpened" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+      <div class="form-group"><label>Client Name *</label><input id="fClient" placeholder="Full name"></div>
+      <div class="form-group"><label>Client Email</label><input id="fClientEmail" type="email"></div>
+      <div class="form-group"><label>Client Phone</label><input id="fClientPhone"></div>
+      <div class="form-group"><label>Matter Type *</label><select id="fType"><option value="">Select...</option>${PRACTICE_AREAS.map(a=>`<option>${a}</option>`).join('')}</select></div>
+      <div class="form-group full"><label>Matter Description</label><textarea id="fDesc"></textarea></div>
+      <div class="form-group"><label>Estimated Fee (£)</label><input id="fFee" type="number" min="0" step="100"></div>
+      <div class="form-group"><label>Fee Type</label><select id="fFeeType">${FEE_TYPES.map(f=>`<option>${f}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Responsible</label><input id="fResp" value="Kenneth Awoonor-Renner" readonly style="background:#f5f4f0"></div>
+      <div class="form-group"><label>Reserved Activity?</label><select id="fReserved" onchange="document.getElementById('fPanelRow').style.display=this.value==='Yes'?'flex':'none'"><option>No</option><option>Yes</option></select></div>
+      <div class="form-group" id="fPanelRow" style="display:none"><label>Panel Solicitor Name</label><input id="fPanelSolicitor"></div>
+      <div class="form-group full"><label>Notes</label><textarea id="fNotes"></textarea></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveMatter()">Create Matter</button>
+    </div>
+  </div>`;
+}
+function saveMatter() {
+  const client = document.getElementById('fClient').value.trim();
+  const type = document.getElementById('fType').value;
+  if (!client || !type) { alert('Client name and matter type are required.'); return; }
+  const matters = getStore('matters');
+  const m = {
+    id: genId(), matterNo: document.getElementById('fMatterNo').value, client,
+    clientEmail: document.getElementById('fClientEmail').value, clientPhone: document.getElementById('fClientPhone').value,
+    type, description: document.getElementById('fDesc').value, estimatedFee: parseFloat(document.getElementById('fFee').value)||0,
+    feeType: document.getElementById('fFeeType').value, opened: document.getElementById('fOpened').value,
+    responsible: 'Kenneth Awoonor-Renner', reserved: document.getElementById('fReserved').value==='Yes',
+    panelSolicitor: document.getElementById('fPanelSolicitor')?.value||'', status: 'Open', notes: document.getElementById('fNotes').value,
+    lastActivity: document.getElementById('fOpened').value,
+    compliance: { idVerified:false, proofAddress:false, sourceFunds:false, pepCheck:false, conflictCheck:false, engagementLetter:false, feeAgreement:false, upfrontPayment:false, fileOpened:false },
+    timeEntries: [], documents: [], correspondence: [], closedData: null, learningFeedback: [], draftFeedback: []
+  };
+  matters.push(m);
+  setStore('matters', matters);
+  // Also add contact if not exists
+  const contacts = getStore('contacts');
+  if (!contacts.find(c => c.name.toLowerCase() === client.toLowerCase())) {
+    contacts.push({ id: genId(), name: client, company:'', email: m.clientEmail, phone: m.clientPhone, type:'Client', matters:[m.id], added: m.opened });
+    setStore('contacts', contacts);
+  }
+  closeForm(); render();
+}
+
+// MATTER DETAIL
+function renderMatterDetail(el) {
+  const matters = getStore('matters');
+  const m = matters.find(x => x.id === currentMatterId);
+  if (!m) { currentMatterId = null; render(); return; }
+  document.getElementById('pageTitle').textContent = m.matterNo;
+  el.innerHTML = `
+    <button class="btn btn-sm btn-outline mb-4" onclick="currentMatterId=null;render()">← Back to Matters</button>
+    <div class="matter-header">
+      <div class="mh-main">
+        <h2>${escHtml(m.client)}</h2>
+        <div class="mh-meta">
+          <span>${escHtml(m.matterNo)}</span>
+          <span>${escHtml(m.type)}</span>
+          <span>${statusBadge(m.status)}</span>
+          <span>${fmtCurrency(m.estimatedFee)}</span>
+          <span>Opened: ${fmt(m.opened)}</span>
+        </div>
+      </div>
+      <div class="mh-actions">
+        ${m.status !== 'Closed' ? `<button class="btn btn-sm btn-danger" onclick="showCloseMatterForm('${m.id}')">Close Matter</button>` : ''}
+      </div>
+    </div>
+    <div class="tab-bar">
+      ${['overview','time','documents','correspondence','compliance','learning'].map(t =>
+        `<div class="tab-btn ${currentMatterTab===t?'active':''}" onclick="currentMatterTab='${t}';render()">${({overview:'Overview',time:'Time Entries',documents:'Documents',correspondence:'Correspondence',compliance:'Compliance',learning:'Learning'})[t]}</div>`
+      ).join('')}
+    </div>
+    <div id="matterTabContent"></div>`;
+  const tc = document.getElementById('matterTabContent');
+  switch(currentMatterTab) {
+    case 'overview': renderMatterOverview(tc, m); break;
+    case 'time': renderMatterTime(tc, m); break;
+    case 'documents': renderMatterDocs(tc, m); break;
+    case 'correspondence': renderMatterCorr(tc, m); break;
+    case 'compliance': renderMatterCompliance(tc, m); break;
+    case 'learning': renderMatterLearning(tc, m); break;
+  }
+}
+function renderMatterOverview(el, m) {
+  el.innerHTML = `<div class="card">
+    <div class="form-grid" style="gap:14px">
+      <div class="form-group"><label>Client Name</label><div style="font-size:14px;font-weight:500">${escHtml(m.client)}</div></div>
+      <div class="form-group"><label>Client Email</label><div style="font-size:14px">${escHtml(m.clientEmail||'—')}</div></div>
+      <div class="form-group"><label>Client Phone</label><div style="font-size:14px">${escHtml(m.clientPhone||'—')}</div></div>
+      <div class="form-group"><label>Matter Type</label><div style="font-size:14px">${escHtml(m.type)}</div></div>
+      <div class="form-group"><label>Fee Type</label><div style="font-size:14px">${escHtml(m.feeType)}</div></div>
+      <div class="form-group"><label>Estimated Fee</label><div style="font-size:14px;font-weight:600">${fmtCurrency(m.estimatedFee)}</div></div>
+      <div class="form-group"><label>Responsible</label><div style="font-size:14px">${escHtml(m.responsible)}</div></div>
+      <div class="form-group"><label>Status</label><div>${statusBadge(m.status)}</div></div>
+      ${m.reserved ? `<div class="form-group"><label>Reserved Activity</label><div style="font-size:14px">Yes — ${escHtml(m.panelSolicitor)}</div></div>` : ''}
+      <div class="form-group full"><label>Description</label><div style="font-size:14px">${escHtml(m.description||'—')}</div></div>
+      <div class="form-group full"><label>Notes</label><div style="font-size:14px">${escHtml(m.notes||'—')}</div></div>
+      ${m.closedData ? `<div class="form-group full" style="margin-top:12px;padding-top:12px;border-top:1px solid #E2E0DB">
+        <label style="font-size:13px;font-weight:600;color:#8B1A1A">Closure Details</label>
+        <div style="font-size:13px;margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div><span style="color:#888">Outcome:</span> ${escHtml(m.closedData.outcome)}</div>
+          <div><span style="color:#888">Final Fee:</span> ${fmtCurrency(m.closedData.finalFee)}</div>
+          <div><span style="color:#888">Satisfaction:</span> ${'★'.repeat(m.closedData.satisfaction)}${'☆'.repeat(5-m.closedData.satisfaction)}</div>
+          <div><span style="color:#888">Referral Source:</span> ${escHtml(m.closedData.referralSource)}</div>
+          <div><span style="color:#888">Complaints:</span> ${m.closedData.complaints?'Yes':'No'}</div>
+          <div><span style="color:#888">Hours Variance:</span> ${m.closedData.hoursVariance||'—'}</div>
+        </div>
+        ${m.closedData.learningNotes ? `<div style="margin-top:8px"><span style="color:#888">Learning Notes:</span> ${escHtml(m.closedData.learningNotes)}</div>` : ''}
+      </div>` : ''}
+    </div>
+  </div>`;
+}
+function renderMatterTime(el, m) {
+  const total = (m.timeEntries||[]).reduce((s,e) => s + e.hours*e.rate, 0);
+  const totalHrs = (m.timeEntries||[]).reduce((s,e) => s + e.hours, 0);
+  el.innerHTML = `
+    <div class="flex justify-between items-center mb-4">
+      <div class="text-sm text-muted">Total: ${totalHrs}h — ${fmtCurrency(total)}</div>
+      <button class="btn btn-sm btn-primary" onclick="showTimeEntryForm('${m.id}')">+ Log Time</button>
+    </div>
+    <div class="table-container">
+      ${!(m.timeEntries||[]).length ? '<div class="empty-state"><div class="empty-icon">⏱</div>No time entries yet</div>' :
+      `<table><thead><tr><th>Date</th><th>Description</th><th>Hours</th><th>Rate</th><th>Amount</th><th>Billed</th></tr></thead><tbody>
+      ${m.timeEntries.map((e,i) => `<tr><td>${fmt(e.date)}</td><td>${escHtml(e.description)}</td><td>${e.hours}</td><td>${fmtCurrency(e.rate)}/hr</td><td>${fmtCurrency(e.hours*e.rate)}</td>
+      <td><input type="checkbox" ${e.billed?'checked':''} onchange="toggleBilled('${m.id}',${i})"></td></tr>`).join('')}</tbody></table>`}
+    </div>`;
+}
+function renderMatterDocs(el, m) {
+  el.innerHTML = `
+    <div class="flex justify-between items-center mb-4">
+      <div></div>
+      <button class="btn btn-sm btn-primary" onclick="showDocForm('${m.id}')">+ Add Document</button>
+    </div>
+    <div class="table-container">
+      ${!(m.documents||[]).length ? '<div class="empty-state"><div class="empty-icon">📄</div>No documents logged yet</div>' :
+      `<table><thead><tr><th>Date</th><th>Document Name</th><th>Type</th><th>Notes</th></tr></thead><tbody>
+      ${m.documents.map(d => `<tr><td>${fmt(d.date)}</td><td>${escHtml(d.name)}</td><td>${escHtml(d.type)}</td><td>${escHtml(d.notes)}</td></tr>`).join('')}</tbody></table>`}
+    </div>`;
+}
+function renderMatterCorr(el, m) {
+  el.innerHTML = `
+    <div class="flex justify-between items-center mb-4">
+      <div></div>
+      <button class="btn btn-sm btn-primary" onclick="showCorrForm('${m.id}')">+ Log Correspondence</button>
+    </div>
+    <div class="table-container">
+      ${!(m.correspondence||[]).length ? '<div class="empty-state"><div class="empty-icon">✉️</div>No correspondence logged yet</div>' :
+      `<table><thead><tr><th>Date</th><th>Direction</th><th>Summary</th><th>Method</th></tr></thead><tbody>
+      ${m.correspondence.map(c => `<tr><td>${fmt(c.date)}</td><td><span class="badge ${c.direction==='In'?'badge-referred':'badge-open'}">${c.direction}</span></td><td>${escHtml(c.summary)}</td><td>${escHtml(c.method)}</td></tr>`).join('')}</tbody></table>`}
+    </div>`;
+}
+function renderMatterCompliance(el, m) {
+  const items = [
+    ['idVerified','Client ID verified (passport/driving licence)'],['proofAddress','Proof of address verified'],
+    ['sourceFunds','Source of funds confirmed'],['pepCheck','PEP/Sanctions check completed'],
+    ['conflictCheck','Conflict check completed'],['engagementLetter','Engagement letter signed'],
+    ['feeAgreement','Fee agreement signed'],['upfrontPayment','Upfront payment received'],['fileOpened','File opened in system']
+  ];
+  el.innerHTML = `<div class="compliance-grid">
+    ${items.map(([k,label]) => `
+      <div class="compliance-item" onclick="toggleCompliance('${m.id}','${k}')">
+        <div class="compliance-check ${m.compliance[k]?'checked':''}">${m.compliance[k]?'✓':''}</div>
+        <span>${label}</span>
+      </div>`).join('')}
+  </div>`;
+}
+function toggleCompliance(matterId, key) {
+  const matters = getStore('matters');
+  const m = matters.find(x => x.id === matterId);
+  if (m) { m.compliance[key] = !m.compliance[key]; setStore('matters', matters); render(); }
+}
+function renderMatterLearning(el, m) {
+  el.innerHTML = `
+    <div class="flex justify-between items-center mb-4">
+      <div class="text-sm text-muted">Draft feedback and learning notes for this matter</div>
+      <button class="btn btn-sm btn-primary" onclick="showDraftFeedbackForm('${m.id}')">+ Log Draft Feedback</button>
+    </div>
+    <div class="table-container">
+      ${!(m.draftFeedback||[]).length ? '<div class="empty-state"><div class="empty-icon">🧠</div>No draft feedback yet</div>' :
+      `<table><thead><tr><th>Date</th><th>Document Type</th><th>AI Quality</th><th>Edits Made</th><th>Time Saved</th><th>Use Again?</th></tr></thead><tbody>
+      ${m.draftFeedback.map(f => `<tr><td>${fmt(f.date)}</td><td>${escHtml(f.docType)}</td><td>${'★'.repeat(f.quality)}${'☆'.repeat(5-f.quality)}</td><td>${escHtml(f.edits||'—')}</td><td>${f.timeSaved}h</td><td>${escHtml(f.useAgain)}</td></tr>`).join('')}</tbody></table>`}
+    </div>`;
+}
+
+// CLOSE MATTER
+function showCloseMatterForm(id) {
+  const overlay = document.getElementById('formOverlay');
+  overlay.classList.remove('hidden');
+  overlay.innerHTML = `<div class="form-panel">
+    <div class="form-title">Close Matter</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Outcome *</label><select id="cfOutcome"><option value="">Select...</option>${OUTCOMES.map(o=>`<option>${o}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Final Fee Collected (£)</label><input id="cfFinalFee" type="number" min="0" step="100"></div>
+      <div class="form-group"><label>Quoted vs Actual Hours Variance</label><input id="cfHoursVar" placeholder="e.g. +5 hours"></div>
+      <div class="form-group"><label>Referral Source</label><select id="cfRefSrc"><option value="">Select...</option>${REFERRAL_SOURCES.map(s=>`<option>${s}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Client Satisfaction</label><div class="star-rating" id="cfStars">${[1,2,3,4,5].map(n=>`<span class="star" data-val="${n}" onclick="setStars('cfStars',${n})">★</span>`).join('')}</div></div>
+      <div class="form-group"><label>Any Complaints?</label><select id="cfComplaints"><option>No</option><option>Yes</option></select></div>
+      <div class="form-group full"><label>Notes for Learning Loop</label><textarea id="cfNotes"></textarea></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="closeMatter('${id}')">Close & Record</button>
+    </div>
+  </div>`;
+}
+function setStars(containerId, val) {
+  document.querySelectorAll(`#${containerId} .star`).forEach(s => {
+    s.classList.toggle('filled', parseInt(s.dataset.val) <= val);
+  });
+  document.getElementById(containerId).dataset.value = val;
+}
+function closeMatter(id) {
+  const outcome = document.getElementById('cfOutcome').value;
+  if (!outcome) { alert('Please select an outcome.'); return; }
+  const matters = getStore('matters');
+  const m = matters.find(x => x.id === id);
+  if (!m) return;
+  m.status = 'Closed';
+  m.lastActivity = new Date().toISOString().split('T')[0];
+  m.closedData = {
+    outcome, finalFee: parseFloat(document.getElementById('cfFinalFee').value)||0,
+    hoursVariance: document.getElementById('cfHoursVar').value,
+    satisfaction: parseInt(document.getElementById('cfStars').dataset.value)||3,
+    referralSource: document.getElementById('cfRefSrc').value,
+    complaints: document.getElementById('cfComplaints').value === 'Yes',
+    learningNotes: document.getElementById('cfNotes').value
+  };
+  setStore('matters', matters);
+  closeForm(); render();
+}
+
+// TIME ENTRY FORM (within matter)
+function showTimeEntryForm(matterId) {
+  const s = getSettings();
+  const overlay = document.getElementById('formOverlay');
+  overlay.classList.remove('hidden');
+  overlay.innerHTML = `<div class="form-panel">
+    <div class="form-title">Log Time Entry</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Date</label><input id="teDate" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+      <div class="form-group"><label>Hours</label><input id="teHours" type="number" min="0.1" step="0.25" value="1"></div>
+      <div class="form-group"><label>Rate (£/hr)</label><input id="teRate" type="number" value="${s.defaultRate}"></div>
+      <div class="form-group full"><label>Description</label><textarea id="teDesc"></textarea></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTimeEntry('${matterId}')">Save</button>
+    </div>
+  </div>`;
+}
+function saveTimeEntry(matterId) {
+  const matters = getStore('matters');
+  const m = matters.find(x => x.id === matterId);
+  if (!m) return;
+  m.timeEntries = m.timeEntries || [];
+  m.timeEntries.push({
+    date: document.getElementById('teDate').value, description: document.getElementById('teDesc').value,
+    hours: parseFloat(document.getElementById('teHours').value)||0, rate: parseFloat(document.getElementById('teRate').value)||300, billed: false
+  });
+  m.lastActivity = new Date().toISOString().split('T')[0];
+  setStore('matters', matters); closeForm(); render();
+}
+function toggleBilled(matterId, idx) {
+  const matters = getStore('matters');
+  const m = matters.find(x => x.id === matterId);
+  if (m && m.timeEntries[idx]) { m.timeEntries[idx].billed = !m.timeEntries[idx].billed; setStore('matters', matters); }
+}
+
+// DOC FORM
+function showDocForm(matterId) {
+  const overlay = document.getElementById('formOverlay');
+  overlay.classList.remove('hidden');
+  overlay.innerHTML = `<div class="form-panel">
+    <div class="form-title">Add Document</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Date</label><input id="docDate" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+      <div class="form-group"><label>Document Name</label><input id="docName"></div>
+      <div class="form-group"><label>Type</label><select id="docType">${DOC_TYPES.map(t=>`<option>${t}</option>`).join('')}</select></div>
+      <div class="form-group full"><label>Notes</label><textarea id="docNotes"></textarea></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveDoc('${matterId}')">Save</button>
+    </div>
+  </div>`;
+}
+function saveDoc(matterId) {
+  const matters = getStore('matters');
+  const m = matters.find(x => x.id === matterId);
+  if (!m) return;
+  m.documents = m.documents || [];
+  m.documents.push({ date: document.getElementById('docDate').value, name: document.getElementById('docName').value, type: document.getElementById('docType').value, notes: document.getElementById('docNotes').value });
+  m.lastActivity = new Date().toISOString().split('T')[0];
+  setStore('matters', matters); closeForm(); render();
+}
+
+// CORRESPONDENCE FORM
+function showCorrForm(matterId) {
+  const overlay = document.getElementById('formOverlay');
+  overlay.classList.remove('hidden');
+  overlay.innerHTML = `<div class="form-panel">
+    <div class="form-title">Log Correspondence</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Date</label><input id="corrDate" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+      <div class="form-group"><label>Direction</label><select id="corrDir"><option>Out</option><option>In</option></select></div>
+      <div class="form-group"><label>Method</label><select id="corrMethod"><option>Email</option><option>Letter</option><option>Phone</option><option>Meeting</option></select></div>
+      <div class="form-group full"><label>Summary</label><textarea id="corrSummary"></textarea></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCorr('${matterId}')">Save</button>
+    </div>
+  </div>`;
+}
+function saveCorr(matterId) {
+  const matters = getStore('matters');
+  const m = matters.find(x => x.id === matterId);
+  if (!m) return;
+  m.correspondence = m.correspondence || [];
+  m.correspondence.push({ date: document.getElementById('corrDate').value, direction: document.getElementById('corrDir').value, summary: document.getElementById('corrSummary').value, method: document.getElementById('corrMethod').value });
+  m.lastActivity = new Date().toISOString().split('T')[0];
+  setStore('matters', matters); closeForm(); render();
+}
+
+// DRAFT FEEDBACK FORM
+function showDraftFeedbackForm(matterId) {
+  const overlay = document.getElementById('formOverlay');
+  overlay.classList.remove('hidden');
+  overlay.innerHTML = `<div class="form-panel">
+    <div class="form-title">Log Draft Feedback</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Document Type</label><select id="dfDocType">${DOC_TYPES.map(t=>`<option>${t}</option>`).join('')}</select></div>
+      <div class="form-group"><label>AI Draft Quality (1-5)</label><div class="star-rating" id="dfStars">${[1,2,3,4,5].map(n=>`<span class="star" data-val="${n}" onclick="setStars('dfStars',${n})">★</span>`).join('')}</div></div>
+      <div class="form-group full"><label>Edits Made (what was changed and why)</label><textarea id="dfEdits"></textarea></div>
+      <div class="form-group"><label>Time Saved vs Manual Draft (hours)</label><input id="dfTimeSaved" type="number" min="0" step="0.5" value="0"></div>
+      <div class="form-group"><label>Would Use Again?</label><select id="dfUseAgain"><option>Yes</option><option>No</option><option>Modified</option></select></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveDraftFeedback('${matterId}')">Save</button>
+    </div>
+  </div>`;
+}
+function saveDraftFeedback(matterId) {
+  const matters = getStore('matters');
+  const m = matters.find(x => x.id === matterId);
+  if (!m) return;
+  m.draftFeedback = m.draftFeedback || [];
+  m.draftFeedback.push({
+    date: new Date().toISOString().split('T')[0],
+    docType: document.getElementById('dfDocType').value,
+    quality: parseInt(document.getElementById('dfStars').dataset.value)||3,
+    edits: document.getElementById('dfEdits').value,
+    timeSaved: parseFloat(document.getElementById('dfTimeSaved').value)||0,
+    useAgain: document.getElementById('dfUseAgain').value
+  });
+  // Also log to template performance
+  const tp = getStore('templatePerf');
+  tp.push({ templateName: document.getElementById('dfDocType').value, quality: parseInt(document.getElementById('dfStars').dataset.value)||3, edits: document.getElementById('dfEdits').value, date: new Date().toISOString().split('T')[0] });
+  setStore('templatePerf', tp);
+  setStore('matters', matters); closeForm(); render();
+}
+
+function closeForm() { document.getElementById('formOverlay').classList.add('hidden'); document.getElementById('formOverlay').innerHTML = ''; }
+
+// ===== MODULE 2: CONTACTS =====
+function renderContacts(el) {
+  const contacts = getStore('contacts');
+  el.innerHTML = `
+    <div class="flex justify-between items-center mb-4">
+      <div></div>
+      <button class="btn btn-primary" onclick="showContactForm()">+ New Contact</button>
+    </div>
+    <div class="filter-bar">
+      <input type="text" id="contactSearch" placeholder="Search contacts..." oninput="filterContacts()" style="flex:1;min-width:180px;">
+      <select id="contactTypeFilter" onchange="filterContacts()">
+        <option value="">All Types</option>
+        ${CONTACT_TYPES.map(t=>`<option>${t}</option>`).join('')}
+      </select>
+    </div>
+    <div class="table-container" id="contactsTable">${renderContactsTable(contacts)}</div>`;
+}
+function renderContactsTable(contacts) {
+  if (!contacts.length) return '<div class="empty-state"><div class="empty-icon">👤</div>No contacts yet</div>';
+  return `<table><thead><tr><th>Name</th><th>Company</th><th>Email</th><th>Phone</th><th>Type</th><th>Matters</th><th>Added</th></tr></thead><tbody>
+    ${contacts.map(c => `<tr><td style="font-weight:500">${escHtml(c.name)}</td><td>${escHtml(c.company||'—')}</td><td>${escHtml(c.email||'—')}</td><td>${escHtml(c.phone||'—')}</td>
+    <td><span class="badge badge-${c.type==='Client'?'open':c.type==='Prospect'?'pending':'referred'}">${escHtml(c.type)}</span></td>
+    <td>${(c.matters||[]).length}</td><td>${fmt(c.added)}</td></tr>`).join('')}</tbody></table>`;
+}
+function filterContacts() {
+  const q = document.getElementById('contactSearch').value.toLowerCase();
+  const tp = document.getElementById('contactTypeFilter').value;
+  let contacts = getStore('contacts');
+  if (q) contacts = contacts.filter(c => c.name.toLowerCase().includes(q) || (c.email||'').toLowerCase().includes(q) || (c.company||'').toLowerCase().includes(q));
+  if (tp) contacts = contacts.filter(c => c.type === tp);
+  document.getElementById('contactsTable').innerHTML = renderContactsTable(contacts);
+}
+function showContactForm() {
+  const overlay = document.getElementById('formOverlay');
+  overlay.classList.remove('hidden');
+  overlay.innerHTML = `<div class="form-panel">
+    <div class="form-title">New Contact</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Name *</label><input id="cName"></div>
+      <div class="form-group"><label>Company</label><input id="cCompany"></div>
+      <div class="form-group"><label>Email</label><input id="cEmail" type="email"></div>
+      <div class="form-group"><label>Phone</label><input id="cPhone"></div>
+      <div class="form-group"><label>Type</label><select id="cType">${CONTACT_TYPES.map(t=>`<option>${t}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Date Added</label><input id="cAdded" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveContact()">Save Contact</button>
+    </div>
+  </div>`;
+}
+function saveContact() {
+  const name = document.getElementById('cName').value.trim();
+  if (!name) { alert('Name is required.'); return; }
+  const contacts = getStore('contacts');
+  contacts.push({ id: genId(), name, company: document.getElementById('cCompany').value, email: document.getElementById('cEmail').value, phone: document.getElementById('cPhone').value, type: document.getElementById('cType').value, matters: [], added: document.getElementById('cAdded').value });
+  setStore('contacts', contacts); closeForm(); render();
+}
+
+// ===== MODULE 3: TIME & BILLING =====
+function renderBilling(el) {
+  el.innerHTML = `
+    <div class="tab-bar">
+      <div class="tab-btn ${currentBillingTab==='entries'?'active':''}" onclick="currentBillingTab='entries';render()">Time Entries</div>
+      <div class="tab-btn ${currentBillingTab==='summary'?'active':''}" onclick="currentBillingTab='summary';render()">Billing Summary</div>
+    </div>
+    <div id="billingContent"></div>`;
+  const bc = document.getElementById('billingContent');
+  if (currentBillingTab === 'entries') renderBillingEntries(bc);
+  else renderBillingSummary(bc);
+}
+function renderBillingEntries(el) {
+  const matters = getStore('matters');
+  const allEntries = [];
+  matters.forEach(m => { (m.timeEntries||[]).forEach(e => { allEntries.push({...e, matter: m.matterNo, matterId: m.id, client: m.client, amount: e.hours*e.rate }); }); });
+  allEntries.sort((a,b) => b.date.localeCompare(a.date));
+  el.innerHTML = `
+    <div class="flex justify-between items-center mb-4">
+      <div></div>
+      <button class="btn btn-primary" onclick="showGlobalTimeForm()">+ Log Time</button>
+    </div>
+    <div class="table-container">
+      ${!allEntries.length ? '<div class="empty-state"><div class="empty-icon">⏱</div>No time entries yet</div>' :
+      `<table><thead><tr><th>Date</th><th>Matter</th><th>Description</th><th>Hours</th><th>Rate</th><th>Amount</th><th>Billed</th></tr></thead><tbody>
+      ${allEntries.map(e => `<tr><td>${fmt(e.date)}</td><td style="font-weight:500;color:#8B1A1A">${escHtml(e.matter)}</td><td>${escHtml(e.description)}</td><td>${e.hours}</td><td>${fmtCurrency(e.rate)}/hr</td><td>${fmtCurrency(e.amount)}</td>
+      <td>${e.billed?'<span class="badge badge-open">Yes</span>':'<span class="badge badge-pending">No</span>'}</td></tr>`).join('')}</tbody></table>`}
+    </div>`;
+}
+function renderBillingSummary(el) {
+  const matters = getStore('matters');
+  let unbilled=0, billedMonth=0, collectedYTD=0, outstanding=0;
+  const now = new Date();
+  const thisMonth = now.toISOString().slice(0,7);
+  const thisYear = now.getFullYear().toString();
+  matters.forEach(m => {
+    (m.timeEntries||[]).forEach(e => {
+      const amt = e.hours*e.rate;
+      if (!e.billed) unbilled += amt;
+      else { if (e.date && e.date.startsWith(thisMonth)) billedMonth += amt; if (e.date && e.date.startsWith(thisYear)) collectedYTD += amt; }
+    });
+    if (m.closedData && m.closedData.finalFee) collectedYTD += 0; // finalFee tracked separately
+    if (m.status === 'Open') outstanding += m.estimatedFee;
+  });
+  el.innerHTML = `
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="kpi-label">Total Unbilled</div><div class="kpi-value">${fmtCurrency(unbilled)}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Billed This Month</div><div class="kpi-value">${fmtCurrency(billedMonth)}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Collected YTD</div><div class="kpi-value">${fmtCurrency(collectedYTD)}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Outstanding</div><div class="kpi-value">${fmtCurrency(outstanding)}</div></div>
+    </div>
+    <button class="btn btn-secondary" onclick="exportBillingCSV()">Export CSV</button>`;
+}
+function showGlobalTimeForm() {
+  const matters = getStore('matters').filter(m => m.status === 'Open');
+  const s = getSettings();
+  const overlay = document.getElementById('formOverlay');
+  overlay.classList.remove('hidden');
+  overlay.innerHTML = `<div class="form-panel">
+    <div class="form-title">Log Time</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Matter *</label><select id="gtMatter"><option value="">Select...</option>${matters.map(m=>`<option value="${m.id}">${m.matterNo} — ${m.client}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Date</label><input id="gtDate" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+      <div class="form-group"><label>Hours</label><input id="gtHours" type="number" min="0.1" step="0.25" value="1"></div>
+      <div class="form-group"><label>Rate (£/hr)</label><input id="gtRate" type="number" value="${s.defaultRate}"></div>
+      <div class="form-group full"><label>Description</label><textarea id="gtDesc"></textarea></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveGlobalTime()">Save</button>
+    </div>
+  </div>`;
+}
+function saveGlobalTime() {
+  const matterId = document.getElementById('gtMatter').value;
+  if (!matterId) { alert('Select a matter.'); return; }
+  const matters = getStore('matters');
+  const m = matters.find(x => x.id === matterId);
+  if (!m) return;
+  m.timeEntries = m.timeEntries || [];
+  m.timeEntries.push({
+    date: document.getElementById('gtDate').value, description: document.getElementById('gtDesc').value,
+    hours: parseFloat(document.getElementById('gtHours').value)||0, rate: parseFloat(document.getElementById('gtRate').value)||300, billed: false
+  });
+  m.lastActivity = new Date().toISOString().split('T')[0];
+  setStore('matters', matters); closeForm(); render();
+}
+function exportBillingCSV() {
+  const matters = getStore('matters');
+  let csv = 'Date,Matter,Client,Description,Hours,Rate,Amount,Billed\n';
+  matters.forEach(m => { (m.timeEntries||[]).forEach(e => { csv += `${e.date},${m.matterNo},${m.client},"${e.description}",${e.hours},${e.rate},${e.hours*e.rate},${e.billed?'Yes':'No'}\n`; }); });
+  downloadCSV(csv, 'lexkara-billing-export.csv');
+}
+
+// ===== MODULE 4: COMPLIANCE =====
+function renderCompliance(el) {
+  const matters = getStore('matters').filter(m => m.status === 'Open' || m.status === 'Pending');
+  const compItems = ['idVerified','proofAddress','sourceFunds','pepCheck','conflictCheck','engagementLetter','feeAgreement','upfrontPayment','fileOpened'];
+  const compLabels = { idVerified:'Client ID', proofAddress:'Proof of Address', sourceFunds:'Source of Funds', pepCheck:'PEP/Sanctions', conflictCheck:'Conflict Check', engagementLetter:'Engagement Letter', feeAgreement:'Fee Agreement', upfrontPayment:'Upfront Payment', fileOpened:'File Opened' };
+
+  let complete=0, pending=0, overdue=0;
+  matters.forEach(m => {
+    const done = compItems.filter(k => m.compliance && m.compliance[k]).length;
+    if (done === compItems.length) complete++;
+    else { const daysSinceOpen = Math.floor((Date.now() - new Date(m.opened).getTime())/(1000*60*60*24)); if (daysSinceOpen > 7 && done < compItems.length) overdue++; else pending++; }
+  });
+
+  el.innerHTML = `
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="kpi-label">Complete</div><div class="kpi-value" style="color:#1a7431">${complete}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Pending</div><div class="kpi-value" style="color:#856404">${pending}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Overdue</div><div class="kpi-value" style="color:#991b1b">${overdue}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Open Matters</div><div class="kpi-value">${matters.length}</div></div>
+    </div>
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">AML/KYC Dashboard</h3>
+    <div class="table-container mb-4">
+      ${!matters.length ? '<div class="empty-state">No open matters</div>' :
+      `<table><thead><tr><th>Matter</th><th>Client</th>${compItems.map(k=>`<th style="text-align:center;font-size:10px">${compLabels[k]}</th>`).join('')}<th>Status</th></tr></thead><tbody>
+      ${matters.map(m => {
+        const done = compItems.filter(k => m.compliance && m.compliance[k]).length;
+        const total = compItems.length;
+        const daysSinceOpen = Math.floor((Date.now() - new Date(m.opened).getTime())/(1000*60*60*24));
+        let st = done===total ? 'Complete' : (daysSinceOpen > 7 && done < total ? 'Overdue' : 'Pending');
+        let stClass = st==='Complete'?'badge-complete':st==='Overdue'?'badge-overdue':'badge-pending';
+        return `<tr><td style="font-weight:500;color:#8B1A1A">${escHtml(m.matterNo)}</td><td>${escHtml(m.client)}</td>
+        ${compItems.map(k => `<td style="text-align:center;font-size:16px">${m.compliance&&m.compliance[k]?'<span style="color:#1a7431">✓</span>':'<span style="color:#ccc">✗</span>'}</td>`).join('')}
+        <td><span class="badge ${stClass}">${st}</span></td></tr>`;
+      }).join('')}</tbody></table>`}
+    </div>
+    <h3 style="font-size:14px;font-weight:600;margin:20px 0 12px">Regulatory Deadlines</h3>
+    <div class="table-container">
+      ${renderDeadlines(matters)}
+    </div>`;
+}
+function renderDeadlines(matters) {
+  const deadlines = [];
+  matters.forEach(m => {
+    if (!m.compliance || !m.compliance.engagementLetter) {
+      const opened = new Date(m.opened);
+      const due = new Date(opened.getTime() + 14*24*60*60*1000);
+      const daysRemaining = Math.ceil((due.getTime()-Date.now())/(1000*60*60*24));
+      deadlines.push({ matter: m.matterNo, type: 'Engagement Letter', date: due.toISOString().split('T')[0], daysRemaining, status: daysRemaining<0?'Overdue':daysRemaining<=7?'Urgent':'On Track' });
+    }
+    if (!m.compliance || !m.compliance.idVerified) {
+      const opened = new Date(m.opened);
+      const due = new Date(opened.getTime() + 7*24*60*60*1000);
+      const daysRemaining = Math.ceil((due.getTime()-Date.now())/(1000*60*60*24));
+      deadlines.push({ matter: m.matterNo, type: 'Client ID Verification', date: due.toISOString().split('T')[0], daysRemaining, status: daysRemaining<0?'Overdue':daysRemaining<=7?'Urgent':'On Track' });
+    }
+  });
+  if (!deadlines.length) return '<div class="empty-state">No outstanding deadlines</div>';
+  return `<table><thead><tr><th>Matter</th><th>Deadline Type</th><th>Due Date</th><th>Days Remaining</th><th>Status</th></tr></thead><tbody>
+    ${deadlines.map(d => {
+      const color = d.daysRemaining<0?'#991b1b':d.daysRemaining<=7?'#856404':d.daysRemaining<=14?'#856404':'#1a7431';
+      return `<tr><td style="font-weight:500;color:#8B1A1A">${escHtml(d.matter)}</td><td>${d.type}</td><td>${fmt(d.date)}</td>
+      <td style="color:${color};font-weight:600">${d.daysRemaining<0?d.daysRemaining+' (overdue)':d.daysRemaining}</td>
+      <td><span class="badge ${d.status==='Overdue'?'badge-overdue':d.status==='Urgent'?'badge-pending':'badge-open'}">${d.status}</span></td></tr>`;
+    }).join('')}</tbody></table>`;
+}
+
+// ===== MODULE 5: RESEARCH LOG =====
+function renderResearch(el) {
+  const research = getStore('research');
+  el.innerHTML = `
+    <div class="flex justify-between items-center mb-4">
+      <div></div>
+      <button class="btn btn-primary" onclick="showResearchForm()">+ New Research Entry</button>
+    </div>
+    <div class="table-container">
+      ${!research.length ? '<div class="empty-state"><div class="empty-icon">📚</div>No research entries yet</div>' :
+      `<table><thead><tr><th>Date</th><th>Matter</th><th>Query</th><th>Sources</th><th>Key Findings</th><th>Used?</th></tr></thead><tbody>
+      ${research.map(r => `<tr><td>${fmt(r.date)}</td><td style="font-weight:500">${escHtml(r.matter)}</td><td>${escHtml(r.query)}</td><td>${escHtml(r.sources)}</td><td style="max-width:300px">${escHtml(r.findings)}</td><td>${r.used?'<span class="badge badge-open">Yes</span>':'<span class="badge badge-pending">No</span>'}</td></tr>`).join('')}</tbody></table>`}
+    </div>`;
+}
+function showResearchForm() {
+  const matters = getStore('matters');
+  const overlay = document.getElementById('formOverlay');
+  overlay.classList.remove('hidden');
+  overlay.innerHTML = `<div class="form-panel">
+    <div class="form-title">New Research Entry</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Date</label><input id="rDate" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+      <div class="form-group"><label>Matter</label><select id="rMatter"><option value="">General</option>${matters.map(m=>`<option value="${m.matterNo}">${m.matterNo} — ${m.client}</option>`).join('')}</select></div>
+      <div class="form-group full"><label>Query / Research Question</label><textarea id="rQuery"></textarea></div>
+      <div class="form-group full"><label>Sources Used</label><input id="rSources" placeholder="e.g. Westlaw, Lexis, BAILII"></div>
+      <div class="form-group full"><label>Key Findings</label><textarea id="rFindings"></textarea></div>
+      <div class="form-group"><label>Used in Matter?</label><select id="rUsed"><option value="true">Yes</option><option value="false">No</option></select></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveResearch()">Save</button>
+    </div>
+  </div>`;
+}
+function saveResearch() {
+  const research = getStore('research');
+  research.push({
+    id: genId(), date: document.getElementById('rDate').value, matter: document.getElementById('rMatter').value,
+    query: document.getElementById('rQuery').value, sources: document.getElementById('rSources').value,
+    findings: document.getElementById('rFindings').value, used: document.getElementById('rUsed').value==='true'
+  });
+  setStore('research', research); closeForm(); render();
+}
+
+// ===== MODULE 6: LEARNING LOOP =====
+function renderLearning(el) {
+  el.innerHTML = `
+    <div class="tab-bar">
+      <div class="tab-btn ${currentLearningTab==='dashboard'?'active':''}" onclick="currentLearningTab='dashboard';render()">Dashboard</div>
+      <div class="tab-btn ${currentLearningTab==='drafts'?'active':''}" onclick="currentLearningTab='drafts';render()">Draft Feedback</div>
+      <div class="tab-btn ${currentLearningTab==='patterns'?'active':''}" onclick="currentLearningTab='patterns';render()">Outcome Patterns</div>
+      <div class="tab-btn ${currentLearningTab==='insights'?'active':''}" onclick="currentLearningTab='insights';render()">Insights</div>
+      <div class="tab-btn ${currentLearningTab==='templates'?'active':''}" onclick="currentLearningTab='templates';render()">Template Performance</div>
+      <div class="tab-btn ${currentLearningTab==='store'?'active':''}" onclick="currentLearningTab='store';render()">Learning Store</div>
+    </div>
+    <div id="learningContent"></div>`;
+  const lc = document.getElementById('learningContent');
+  switch(currentLearningTab) {
+    case 'dashboard': renderLearningDashboard(lc); break;
+    case 'drafts': renderLearningDrafts(lc); break;
+    case 'patterns': renderLearningPatterns(lc); break;
+    case 'insights': renderLearningInsights(lc); break;
+    case 'templates': renderLearningTemplates(lc); break;
+    case 'store': renderLearningStore(lc); break;
+  }
+}
+function getClosedMatters() { return getStore('matters').filter(m => m.status === 'Closed' && m.closedData); }
+function renderLearningDashboard(el) {
+  const closed = getClosedMatters();
+  const all = getStore('matters');
+  const avgFeeAcc = closed.length ? (closed.reduce((s,m) => s + (m.closedData.finalFee / Math.max(m.estimatedFee,1) * 100), 0) / closed.length).toFixed(0) : '—';
+  const avgSat = closed.length ? (closed.reduce((s,m) => s + m.closedData.satisfaction, 0) / closed.length).toFixed(1) : '—';
+  // Top practice area
+  const areaCounts = {};
+  all.forEach(m => { areaCounts[m.type] = (areaCounts[m.type]||0)+1; });
+  const topArea = Object.entries(areaCounts).sort((a,b)=>b[1]-a[1])[0];
+
+  el.innerHTML = `
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="kpi-label">Matters Closed</div><div class="kpi-value">${closed.length}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Avg Fee Accuracy</div><div class="kpi-value">${avgFeeAcc}${avgFeeAcc!=='—'?'%':''}</div><div class="kpi-sub">quoted vs actual</div></div>
+      <div class="kpi-card"><div class="kpi-label">Avg Client Satisfaction</div><div class="kpi-value">${avgSat}${avgSat!=='—'?' ★':''}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Top Practice Area</div><div class="kpi-value" style="font-size:16px">${topArea ? topArea[0] : '—'}</div><div class="kpi-sub">${topArea ? topArea[1]+' matters' : ''}</div></div>
+    </div>
+    ${!closed.length ? '<div class="empty-state" style="margin-top:20px"><div class="empty-icon">🧠</div>Close matters to start building learning data.<br>The Learning Loop improves with every closed case.</div>' : ''}`;
+}
+function renderLearningDrafts(el) {
+  const matters = getStore('matters');
+  const allDrafts = [];
+  matters.forEach(m => { (m.draftFeedback||[]).forEach(f => { allDrafts.push({...f, matter: m.matterNo}); }); });
+  el.innerHTML = `
+    <div class="table-container">
+      ${!allDrafts.length ? '<div class="empty-state"><div class="empty-icon">📝</div>No draft feedback yet. Log feedback from matter detail views.</div>' :
+      `<table><thead><tr><th>Date</th><th>Matter</th><th>Document Type</th><th>AI Quality</th><th>Edits</th><th>Time Saved</th><th>Use Again?</th></tr></thead><tbody>
+      ${allDrafts.map(f => `<tr><td>${fmt(f.date)}</td><td style="font-weight:500">${escHtml(f.matter)}</td><td>${escHtml(f.docType)}</td><td>${'★'.repeat(f.quality)}${'☆'.repeat(5-f.quality)}</td><td style="max-width:200px">${escHtml(f.edits||'—')}</td><td>${f.timeSaved}h</td><td>${escHtml(f.useAgain)}</td></tr>`).join('')}</tbody></table>`}
+    </div>`;
+}
+function renderLearningPatterns(el) {
+  const closed = getClosedMatters();
+  // By Practice Area
+  const byArea = {};
+  closed.forEach(m => {
+    if (!byArea[m.type]) byArea[m.type] = { count:0, feeQuoted:0, feeActual:0, satisfaction:0, hours:0 };
+    byArea[m.type].count++;
+    byArea[m.type].feeQuoted += m.estimatedFee;
+    byArea[m.type].feeActual += m.closedData.finalFee;
+    byArea[m.type].satisfaction += m.closedData.satisfaction;
+    byArea[m.type].hours += (m.timeEntries||[]).reduce((s,e)=>s+e.hours,0);
+  });
+  // By Referral Source
+  const byRef = {};
+  closed.forEach(m => {
+    const src = m.closedData.referralSource || 'Unknown';
+    if (!byRef[src]) byRef[src] = { count:0, totalFee:0 };
+    byRef[src].count++;
+    byRef[src].totalFee += m.closedData.finalFee;
+  });
+
+  el.innerHTML = `
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">By Practice Area</h3>
+    <div class="table-container mb-4">
+      ${!Object.keys(byArea).length ? '<div class="empty-state">No closed matter data yet</div>' :
+      `<table><thead><tr><th>Practice Area</th><th>Count</th><th>Avg Fee Accuracy</th><th>Avg Satisfaction</th><th>Avg Hours</th></tr></thead><tbody>
+      ${Object.entries(byArea).map(([area,d]) => `<tr><td style="font-weight:500">${area}</td><td>${d.count}</td><td>${(d.feeActual/Math.max(d.feeQuoted,1)*100).toFixed(0)}%</td><td>${(d.satisfaction/d.count).toFixed(1)} ★</td><td>${(d.hours/d.count).toFixed(1)}</td></tr>`).join('')}</tbody></table>`}
+    </div>
+    <h3 style="font-size:14px;font-weight:600;margin:20px 0 12px">By Referral Source</h3>
+    <div class="table-container">
+      ${!Object.keys(byRef).length ? '<div class="empty-state">No closed matter data yet</div>' :
+      `<table><thead><tr><th>Referral Source</th><th>Volume</th><th>Avg Fee</th></tr></thead><tbody>
+      ${Object.entries(byRef).map(([src,d]) => `<tr><td style="font-weight:500">${src}</td><td>${d.count}</td><td>${fmtCurrency(d.totalFee/d.count)}</td></tr>`).join('')}</tbody></table>`}
+    </div>`;
+}
+function renderLearningInsights(el) {
+  const closed = getClosedMatters();
+  const all = getStore('matters');
+  const insights = [];
+
+  // Fee accuracy insights by practice area
+  const byArea = {};
+  closed.forEach(m => {
+    if (!byArea[m.type]) byArea[m.type] = { feeQuoted:0, feeActual:0, count:0 };
+    byArea[m.type].count++;
+    byArea[m.type].feeQuoted += m.estimatedFee;
+    byArea[m.type].feeActual += m.closedData.finalFee;
+  });
+  Object.entries(byArea).forEach(([area,d]) => {
+    const acc = (d.feeActual/Math.max(d.feeQuoted,1)*100);
+    if (acc > 110) insights.push(`${area} matters are averaging ${(acc-100).toFixed(0)}% over quoted fee. Consider adjusting fee estimates upward.`);
+    else if (acc < 85) insights.push(`${area} matters are under-billing by ${(100-acc).toFixed(0)}%. Review scope management.`);
+  });
+
+  // Referral source insights
+  const byRef = {};
+  closed.forEach(m => { const s = m.closedData.referralSource||'Unknown'; byRef[s] = (byRef[s]||0)+1; });
+  const topRef = Object.entries(byRef).sort((a,b)=>b[1]-a[1])[0];
+  if (topRef && closed.length > 1) {
+    insights.push(`${topRef[0]} referrals account for ${((topRef[1]/closed.length)*100).toFixed(0)}% of closed matters — highest of all sources.`);
+  }
+
+  // Compliance insights
+  const openMatters = all.filter(m => m.status === 'Open');
+  const incompleteComp = openMatters.filter(m => {
+    const comp = m.compliance || {};
+    return !comp.idVerified || !comp.proofAddress || !comp.sourceFunds || !comp.pepCheck || !comp.conflictCheck;
+  });
+  if (incompleteComp.length) {
+    insights.push(`${incompleteComp.length} open matter${incompleteComp.length>1?'s have':' has'} incomplete compliance checklist items. Review immediately.`);
+  }
+
+  // Satisfaction insights
+  const lowSat = closed.filter(m => m.closedData.satisfaction <= 2);
+  if (lowSat.length) insights.push(`${lowSat.length} matter${lowSat.length>1?'s':''} received a satisfaction rating of 2 stars or below. Review client feedback.`);
+
+  if (!insights.length && !closed.length) insights.push('Close matters to generate learning insights. The system analyses patterns across completed cases.');
+  if (!insights.length && closed.length) insights.push('All metrics are within normal ranges. Continue monitoring as more matters close.');
+
+  el.innerHTML = `<h3 style="font-size:14px;font-weight:600;margin-bottom:12px">Auto-Generated Insights</h3>
+    ${insights.map(i => `<div class="insight-card">${escHtml(i)}</div>`).join('')}`;
+}
+function renderLearningTemplates(el) {
+  const tp = getStore('templatePerf');
+  // Aggregate by template name
+  const byName = {};
+  tp.forEach(t => {
+    if (!byName[t.templateName]) byName[t.templateName] = { count:0, totalQuality:0, edits:0, lastUsed:'' };
+    byName[t.templateName].count++;
+    byName[t.templateName].totalQuality += t.quality;
+    if (t.edits) byName[t.templateName].edits++;
+    if (!byName[t.templateName].lastUsed || t.date > byName[t.templateName].lastUsed) byName[t.templateName].lastUsed = t.date;
+  });
+  el.innerHTML = `
+    <div class="table-container">
+      ${!Object.keys(byName).length ? '<div class="empty-state"><div class="empty-icon">📋</div>No template data yet. Log draft feedback from matter views.</div>' :
+      `<table><thead><tr><th>Template Name</th><th>Times Used</th><th>Avg AI Quality</th><th>Entries w/ Edits</th><th>Last Used</th></tr></thead><tbody>
+      ${Object.entries(byName).map(([name,d]) => `<tr><td style="font-weight:500">${escHtml(name)}</td><td>${d.count}</td><td>${(d.totalQuality/d.count).toFixed(1)} ★</td><td>${d.edits}</td><td>${fmt(d.lastUsed)}</td></tr>`).join('')}</tbody></table>`}
+    </div>`;
+}
+function renderLearningStore(el) {
+  const closed = getClosedMatters();
+  el.innerHTML = `
+    <div class="flex justify-between items-center mb-4">
+      <div class="text-sm text-muted">${closed.length} record${closed.length!==1?'s':''} — training dataset for LexLitigatum model</div>
+      <button class="btn btn-secondary" onclick="exportLearningCSV()">Export CSV</button>
+    </div>
+    <div class="table-container">
+      ${!closed.length ? '<div class="empty-state"><div class="empty-icon">💾</div>No closed matter data. The Learning Store populates as matters are closed.</div>' :
+      `<table style="font-size:12px"><thead><tr><th>Matter No</th><th>Practice Area</th><th>Fee Quoted</th><th>Fee Actual</th><th>Hours</th><th>Satisfaction</th><th>Outcome</th><th>Referral</th><th>Compliance?</th><th>Draft Avg</th></tr></thead><tbody>
+      ${closed.map(m => {
+        const totalHrs = (m.timeEntries||[]).reduce((s,e)=>s+e.hours,0);
+        const compItems = ['idVerified','proofAddress','sourceFunds','pepCheck','conflictCheck','engagementLetter','feeAgreement','upfrontPayment','fileOpened'];
+        const compDone = compItems.filter(k => m.compliance&&m.compliance[k]).length === compItems.length;
+        const draftAvg = (m.draftFeedback||[]).length ? ((m.draftFeedback.reduce((s,f)=>s+f.quality,0)/m.draftFeedback.length).toFixed(1)) : '—';
+        return `<tr><td style="font-weight:500;color:#8B1A1A">${escHtml(m.matterNo)}</td><td>${escHtml(m.type)}</td><td>${fmtCurrency(m.estimatedFee)}</td><td>${fmtCurrency(m.closedData.finalFee)}</td><td>${totalHrs}</td>
+        <td>${m.closedData.satisfaction} ★</td><td>${escHtml(m.closedData.outcome)}</td><td>${escHtml(m.closedData.referralSource)}</td>
+        <td>${compDone?'<span style="color:#1a7431">✓</span>':'<span style="color:#991b1b">✗</span>'}</td><td>${draftAvg}</td></tr>`;
+      }).join('')}</tbody></table>`}
+    </div>`;
+}
+function exportLearningCSV() {
+  const closed = getClosedMatters();
+  let csv = 'Matter No,Practice Area,Fee Quoted,Fee Actual,Hours,Satisfaction,Outcome,Referral Source,Compliance Complete,Draft Quality Avg\n';
+  closed.forEach(m => {
+    const totalHrs = (m.timeEntries||[]).reduce((s,e)=>s+e.hours,0);
+    const compItems = ['idVerified','proofAddress','sourceFunds','pepCheck','conflictCheck','engagementLetter','feeAgreement','upfrontPayment','fileOpened'];
+    const compDone = compItems.filter(k => m.compliance&&m.compliance[k]).length === compItems.length;
+    const draftAvg = (m.draftFeedback||[]).length ? (m.draftFeedback.reduce((s,f)=>s+f.quality,0)/m.draftFeedback.length).toFixed(1) : '';
+    csv += `${m.matterNo},${m.type},${m.estimatedFee},${m.closedData.finalFee},${totalHrs},${m.closedData.satisfaction},${m.closedData.outcome},${m.closedData.referralSource},${compDone?'Yes':'No'},${draftAvg}\n`;
+  });
+  downloadCSV(csv, 'lexkara-learning-store.csv');
+}
+
+// ===== MODULE 7: SETTINGS =====
+function renderSettings(el) {
+  const s = getSettings();
+  el.innerHTML = `
+    <div class="settings-section">
+      <h3>Firm Details</h3>
+      <div class="settings-row"><span class="label">Firm Name</span><span class="value">${escHtml(s.firmName)}</span></div>
+      <div class="settings-row"><span class="label">Principal</span><span class="value">${escHtml(s.principal)}</span></div>
+      <div class="settings-row"><span class="label">Company Number</span><span class="value">${escHtml(s.companyNo)}</span></div>
+      <div class="settings-row"><span class="label">Address</span><span class="value">${escHtml(s.address)}</span></div>
+      <div class="settings-row"><span class="label">Email</span><span class="value">${escHtml(s.email)}</span></div>
+    </div>
+    <div class="settings-section">
+      <h3>Billing Defaults</h3>
+      <div class="settings-row"><span class="label">Default Hourly Rate</span><span class="value">${fmtCurrency(s.defaultRate)}/hr</span></div>
+    </div>
+    <div class="settings-section">
+      <h3>System</h3>
+      <div class="settings-row"><span class="label">Version</span><span class="value">v0.1 — Lexkara Operations Platform</span></div>
+      <div class="settings-row"><span class="label">Data Storage</span><span class="value">Browser storage (local)</span></div>
+    </div>
+    <div style="margin-top:20px;display:flex;gap:10px">
+      <button class="btn btn-primary" onclick="exportAllData()">Export All Data (CSV)</button>
+      <button class="btn btn-outline" onclick="if(confirm('Reset all data? This cannot be undone.')){storage.clear();location.reload();}">Reset All Data</button>
+    </div>`;
+}
+function exportAllData() {
+  const matters = getStore('matters');
+  let csv = 'Matter No,Client,Type,Status,Opened,Fee Estimated,Fee Type,Responsible,Notes\n';
+  matters.forEach(m => { csv += `${m.matterNo},"${m.client}",${m.type},${m.status},${m.opened},${m.estimatedFee},${m.feeType},${m.responsible},"${m.notes||''}"\n`; });
+  downloadCSV(csv, 'lexkara-all-data-export.csv');
+}
+
+// ===== CSV DOWNLOAD =====
+function downloadCSV(csv, filename) {
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ===== INIT =====
+render();
+</script>
+</body>
+</html>
