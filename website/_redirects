@@ -1,0 +1,12 @@
+# Redirects for Lexkara & Co
+# Cloudflare Pages _redirects file
+# Format: from  to  status-code
+
+/privacy            /privacy-policy.html    301
+/privacy-policy     /privacy-policy.html    301
+/terms              /terms.html             301
+/complaints         /complaints.html        301
+/contact            /contact.html           301
+/about              /about.html             301
+/practice           /practice.html          301
+/insights           /insights.html          301
