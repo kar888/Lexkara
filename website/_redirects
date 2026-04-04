@@ -1,12 +1,7 @@
 # Redirects for Lexkara & Co
 # Cloudflare Pages _redirects file
-# Format: from  to  status-code
+# Note: Cloudflare Pages automatically serves .html files without the extension
+# so /about serves about.html, /practice serves practice.html, etc.
+# Only add redirects for paths that don't match a file.
 
-/privacy            /privacy-policy.html    301
-/privacy-policy     /privacy-policy.html    301
-/terms              /terms.html             301
-/complaints         /complaints.html        301
-/contact            /contact.html           301
-/about              /about.html             301
-/practice           /practice.html          301
-/insights           /insights.html          301
+/privacy            /privacy-policy    301
