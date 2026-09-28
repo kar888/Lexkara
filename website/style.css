@@ -1624,3 +1624,17 @@ a.insight-card--linked {
   .lx-about-visual--approach { margin: 0 0 var(--space-8); }
   .lx-article-visual { margin: 0 0 var(--space-8); }
 }
+
+/* Case studies ---------------------------------------------------------- */
+.lx-cs-jurisdiction { margin-top: var(--space-4); font-style: italic; }
+.lx-case-study h2 { font-family: var(--font-display); font-style: italic; font-size: var(--text-xl); margin: var(--space-8) 0 var(--space-3); }
+.lx-cs-disclosure { padding: var(--space-4) var(--space-6); border-left: 3px solid var(--color-accent); background: var(--color-surface-alt); margin-bottom: var(--space-6); }
+.lx-cs-related { margin: var(--space-12) 0 var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); align-items: baseline; }
+.lx-cs-related span, .lx-cs-preview__label { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--color-muted); }
+.lx-cs-practice { color: var(--color-accent); }
+.lx-cs-grid { background: transparent; border: 0; }
+.lx-cs-grid .insight-card { border: 1px solid var(--color-border); }
+.lx-cs-preview { max-width: var(--max-width-prose); margin: var(--space-8) 0 var(--space-6); padding: var(--space-4) var(--space-6); border-left: 3px solid var(--color-accent); background: var(--color-surface-alt); }
+.lx-cs-preview a { display: block; margin-top: var(--space-1); color: var(--color-text); font-weight: 500; }
+.lx-cs-preview a:hover, .lx-cs-preview a:focus-visible { color: var(--color-accent); }
+.lx-cs-preview small { display: block; margin-top: var(--space-1); color: var(--color-muted); }
